@@ -1136,6 +1136,7 @@ bmp_connect(struct bmp_proto *p)
 
   sock *sk = sk_new(p->p.pool);
   sk->type = SK_TCP_ACTIVE;
+  sk->vrf = p->p.vrf;
   sk->saddr = p->local_addr;
   sk->daddr = p->station_ip;
   sk->dport = p->station_port;

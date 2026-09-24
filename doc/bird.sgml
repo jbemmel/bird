@@ -4443,6 +4443,11 @@ routes (in regular routing tables). All BGP protocols are monitored automaticall
 <sect1>Configuration (incomplete)
 <label id="bmp-config">
 
+<p>The common <ref id="proto-vrf" name="vrf"> option selects the VRF used
+for the connection to the monitoring station. For example, <cf/vrf "mgmt"/
+places the BMP connection in the management VRF named <cf/mgmt/. This does
+not restrict which BGP protocols are monitored.
+
 <p><descrip>
 	<tag><label id="bmp-tx-buffer-limit">tx buffer limit <m/number/</tag>
 	How much data we are going to queue before we call the session stuck
