@@ -2691,6 +2691,14 @@ bgp_decode_nlri_evpn(struct bgp_parse_state *s, byte *pos, uint len, rta *a)
       bgp_set_attr_ptr(&(a->eattrs), s->pool, BA_MPLS_LABEL_STACK, 0, m);
       bgp_apply_mpls_labels(s, a, (u32 *) m->data, m->length / 4);
     }
+    else if (a && s->hostentry)
+    {
+      /* EVPN is an MPLS AFI, so bgp_apply_next_hop() defers recursive
+         resolution until a label stack is decoded. IMET and Ethernet
+         Segment routes carry no labels and would otherwise keep an
+         unset destination (RTD_NONE). */
+      rta_apply_hostentry(a, s->hostentry, NULL);
+    }
 
     bgp_rte_update(s, (net_addr *) net, path_id, a);
 
